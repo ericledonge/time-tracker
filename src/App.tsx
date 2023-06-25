@@ -1,5 +1,10 @@
 import { ThemeProvider } from "./theme";
+import { RouterProvider } from "./routing";
 
 export const App = () => {
-  return <ThemeProvider>Time Tracker</ThemeProvider>;
+  return (
+    <ThemeProvider>
+      <RouterProvider />
+    </ThemeProvider>
+  );
 };
