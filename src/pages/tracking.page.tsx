@@ -9,7 +9,7 @@ export const TrackingPage = () => {
 
   return (
     <>
-      <h1>Tracking</h1>
+      <h1 style={{ textAlign: "center" }}>Tracking</h1>
       <section className={classes.formContainer}>
         <Select label="Company" placeholder="Pick one" data={dataCompany} />
 
@@ -30,6 +30,7 @@ const useStyles = createStyles((theme) => ({
     [theme.fn.largerThan("sm")]: {
       display: "flex",
       flexDirection: "row",
+      justifyContent: "center",
       alignItems: "flex-end",
     },
   },
