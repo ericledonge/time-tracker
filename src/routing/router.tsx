@@ -4,11 +4,20 @@ import {
 } from "react-router-dom";
 
 import { Layout } from "./layout.tsx";
-import { DashboardPage, LandingPage, LoginPage } from "../pages";
+import { DashboardPage, LandingPage, LoginPage, TrackingPage } from "../pages";
+
+export const APP_NAME = "Time Tracker";
+
+export enum PAGES {
+  "LANDING" = "/",
+  "LOGIN" = "login",
+  "TRACKING" = "tracking",
+  "DASHBOARD" = "dashboard",
+}
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: PAGES.LANDING,
     element: <Layout />,
     // errorElement: <Error />,
     children: [
@@ -17,11 +26,15 @@ const router = createBrowserRouter([
         element: <LandingPage />,
       },
       {
-        path: "login",
+        path: PAGES.LOGIN,
         element: <LoginPage />,
       },
       {
-        path: "dashboard",
+        path: PAGES.TRACKING,
+        element: <TrackingPage />,
+      },
+      {
+        path: PAGES.DASHBOARD,
         element: <DashboardPage />,
       },
       // {

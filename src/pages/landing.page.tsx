@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useGetIsUserAuthenticated } from "../store/user";
 import { useEffect } from "react";
 import { createStyles } from "@mantine/core";
+import { PAGES } from "../routing";
 
 export const LandingPage = () => {
   const navigate = useNavigate();
@@ -11,8 +12,8 @@ export const LandingPage = () => {
   const isUserAuthenticated = useGetIsUserAuthenticated();
 
   useEffect(() => {
-    if (!isUserAuthenticated) {
-      navigate("/dashboard");
+    if (isUserAuthenticated) {
+      navigate(PAGES.TRACKING);
     }
   }, [isUserAuthenticated, navigate]);
 

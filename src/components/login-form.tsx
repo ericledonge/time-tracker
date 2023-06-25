@@ -11,7 +11,11 @@ import {
   Button,
 } from "@mantine/core";
 
+import { useLogin } from "../hooks";
+
 export const LoginForm = () => {
+  const { email, setEmail, password, setPassword, handleSubmit } = useLogin();
+
   return (
     <Container size={420} my={40}>
       <Title
@@ -31,9 +35,17 @@ export const LoginForm = () => {
       </Text>
 
       <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-        <TextInput label="Email" placeholder="you@mantine.dev" required />
+        <TextInput
+          label="Email"
+          value={email}
+          onChange={(event) => setEmail(event.currentTarget.value)}
+          placeholder="your@email.com"
+          required
+        />
         <PasswordInput
           label="Password"
+          value={password}
+          onChange={(event) => setPassword(event.currentTarget.value)}
           placeholder="Your password"
           required
           mt="md"
@@ -44,7 +56,7 @@ export const LoginForm = () => {
             Forgot password?
           </Anchor>
         </Group>
-        <Button fullWidth mt="xl">
+        <Button onClick={handleSubmit} fullWidth mt="xl">
           Sign in
         </Button>
       </Paper>

@@ -4,31 +4,30 @@ import {
   Group,
   Button,
   Text,
-  Divider,
   Burger,
-  Drawer,
-  ScrollArea,
   rem,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-
-import { useGetIsUserAuthenticated } from "../store/user";
 import { Link } from "react-router-dom";
 
+import { HeaderAppMobile } from "./header-app-mobile.tsx";
+import { APP_NAME, PAGES } from "../routing";
+import { useAuthentication } from "../hooks";
+
 export function HeaderApp() {
-  const isUserAuthenticated = useGetIsUserAuthenticated();
+  const { classes } = useStyles();
+
+  const { isUserAuthenticated, setLogout } = useAuthentication();
 
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
-
-  const { classes, theme } = useStyles();
 
   return (
     <>
       <Header height={60} px="md">
         <Group position="apart" sx={{ height: "100%" }}>
           <Link to="/" style={{ textDecoration: "none" }}>
-            <Text>Time Tracker</Text>
+            <Text>{APP_NAME}</Text>
           </Link>
 
           {isUserAuthenticated && (
@@ -37,24 +36,27 @@ export function HeaderApp() {
               spacing={0}
               className={classes.hiddenMobile}
             >
-              <a href="#" className={classes.link}>
-                Home
-              </a>
-              <a href="#" className={classes.link}>
-                Learn
-              </a>
-              <a href="#" className={classes.link}>
-                Academy
-              </a>
+              <Link to={PAGES.TRACKING} className={classes.link}>
+                Tracking
+              </Link>
+              <Link to={PAGES.DASHBOARD} className={classes.link}>
+                Dashboard
+              </Link>
             </Group>
           )}
 
-          {!isUserAuthenticated && (
+          {!isUserAuthenticated ? (
             <Group className={classes.hiddenMobile}>
               <Link to="/login" style={{ textDecoration: "none" }}>
                 <Button variant="default">Log in</Button>
               </Link>
               <Button>Sign up</Button>
+            </Group>
+          ) : (
+            <Group className={classes.hiddenMobile}>
+              <Button onClick={setLogout} variant="default">
+                Log out
+              </Button>
             </Group>
           )}
 
@@ -66,44 +68,7 @@ export function HeaderApp() {
         </Group>
       </Header>
 
-      <Drawer
-        opened={drawerOpened}
-        onClose={closeDrawer}
-        size="100%"
-        padding="md"
-        title="Navigation"
-        className={classes.hiddenDesktop}
-        zIndex={1000000}
-      >
-        <ScrollArea h={`calc(100vh - ${rem(60)})`} mx="-md">
-          <Divider
-            my="sm"
-            color={theme.colorScheme === "dark" ? "dark.5" : "gray.1"}
-          />
-
-          <a href="#" className={classes.link}>
-            Home
-          </a>
-          <a href="#" className={classes.link}>
-            Learn
-          </a>
-          <a href="#" className={classes.link}>
-            Academy
-          </a>
-
-          <Divider
-            my="sm"
-            color={theme.colorScheme === "dark" ? "dark.5" : "gray.1"}
-          />
-
-          {!isUserAuthenticated && (
-            <Group position="center" grow pb="xl" px="md">
-              <Button variant="default">Log in</Button>
-              <Button>Sign up</Button>
-            </Group>
-          )}
-        </ScrollArea>
-      </Drawer>
+      <HeaderAppMobile drawerOpened={drawerOpened} closeDrawer={closeDrawer} />
     </>
   );
 }
@@ -119,13 +84,6 @@ const useStyles = createStyles((theme) => ({
     color: theme.colorScheme === "dark" ? theme.white : theme.black,
     fontWeight: 500,
     fontSize: theme.fontSizes.sm,
-
-    [theme.fn.smallerThan("sm")]: {
-      height: rem(42),
-      display: "flex",
-      alignItems: "center",
-      width: "100%",
-    },
 
     ...theme.fn.hover({
       backgroundColor:

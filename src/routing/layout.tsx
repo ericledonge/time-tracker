@@ -1,15 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { AppShell } from "@mantine/core";
 
 import { useGetIsUserAuthenticated } from "../store/user";
-import { FooterApp, HeaderApp, NavbarApp } from "../components";
+import { FooterApp, HeaderApp } from "../components";
 
 export const Layout = () => {
   const isUserAuthenticated = useGetIsUserAuthenticated();
   const navigate = useNavigate();
-
-  const [isOpen] = useState(false);
 
   useEffect(() => {
     if (!isUserAuthenticated) {
@@ -18,12 +16,7 @@ export const Layout = () => {
   }, [isUserAuthenticated, navigate]);
 
   return (
-    <AppShell
-      // navbarOffsetBreakpoint="sm"
-      navbar={<NavbarApp isOpen={isOpen} />}
-      footer={<FooterApp />}
-      header={<HeaderApp />}
-    >
+    <AppShell header={<HeaderApp />} footer={<FooterApp />}>
       <Outlet />
     </AppShell>
   );
