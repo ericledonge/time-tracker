@@ -19,7 +19,7 @@ export const useLogin = () => {
       const { data, error } = await signInWithEmail(email, password);
       if (data?.user?.aud === "authenticated") {
         setLogin();
-        navigate("/dashboard");
+        navigate("/tracking");
       } else {
         console.error(error);
       }
