@@ -48,14 +48,14 @@ export const TrackingPage = () => {
           label="Company"
           data={dataCompany}
           value={selectedCompany}
-          onChange={(value) => setSelectedCompany(value)}
+          onChange={(value) => setSelectedCompany(value!)}
           placeholder="Pick one"
         />
         <Select
           label="Activity"
           data={dataActivity}
           value={selectedActivity}
-          onChange={(value) => setSelectedActivity(value)}
+          onChange={(value) => setSelectedActivity(value!)}
           placeholder="Pick one"
         />
       </div>
