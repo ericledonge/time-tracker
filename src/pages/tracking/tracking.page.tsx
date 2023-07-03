@@ -2,10 +2,12 @@ import { useState } from "react";
 import { Button, createStyles, Select, Text } from "@mantine/core";
 import { useStopwatch } from "react-timer-hook";
 
+// TODO: CreateTable https://mantine.dev/core/select/#creatable
+
 const dataCompany = [
-  { label: "Béton Provincial", value: "Béton Provincial" },
-  { label: "HRCOM", value: "HRCOM" },
-  { label: "Partage Club", value: "Partage Club" },
+  { label: "Company 1", value: "Company 1" },
+  { label: "Company 2", value: "Company 2" },
+  { label: "Company 3", value: "Company 3" },
 ];
 
 const dataActivity = [
