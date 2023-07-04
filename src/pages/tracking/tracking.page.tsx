@@ -19,13 +19,16 @@ const dataActivity = [
 export const TrackingPage = () => {
   const { classes } = useStyles();
 
+  const { hours, minutes, isRunning, start, pause } = useStopwatch();
+
   const [selectedCompany, setSelectedCompany] = useState("");
   const [selectedActivity, setSelectedActivity] = useState("");
   const [startingDate, setStartingDate] = useState<Date>();
-  const { hours, minutes, isRunning, start, pause } = useStopwatch();
   const [hasStarted, setHasStarted] = useState(false);
 
   const isStartClickable = selectedCompany && selectedActivity;
+
+  const isNewTaskClickable = hasStarted && !isRunning;
 
   const handleClickStart = () => {
     setHasStarted(true);
@@ -33,8 +36,8 @@ export const TrackingPage = () => {
     start();
   };
 
-  const handleClickPause = () => {
-    pause();
+  const handleClickResume = () => {
+    start();
   };
 
   const handleClickStop = () => {
@@ -43,7 +46,13 @@ export const TrackingPage = () => {
 
   return (
     <div className={classes.mainContainer}>
-      <h1 style={{ textAlign: "center" }}>Tracking</h1>
+      <div className={classes.titleContainer}>
+        <h1 className={classes.title}>Tracking</h1>
+
+        <Button onClick={() => {}} disabled={!isNewTaskClickable} fullWidth>
+          + New task
+        </Button>
+      </div>
 
       <div className={classes.formContainer}>
         <Select
@@ -63,21 +72,26 @@ export const TrackingPage = () => {
       </div>
 
       <div className={classes.buttonContainer}>
-        <Button
-          onClick={handleClickStart}
-          disabled={!isStartClickable || isRunning}
-          fullWidth
-        >
-          {hasStarted ? "Resume" : "Start"}
-        </Button>
-        <Button
-          onClick={handleClickPause}
-          disabled={!isRunning}
-          variant="default"
-          fullWidth
-        >
-          Pause
-        </Button>
+        {!hasStarted ? (
+          <Button
+            onClick={handleClickStart}
+            disabled={!isStartClickable || isRunning}
+            color="green"
+            fullWidth
+          >
+            Start
+          </Button>
+        ) : (
+          <Button
+            onClick={handleClickResume}
+            disabled={!isStartClickable || isRunning}
+            color="green"
+            fullWidth
+          >
+            Resume
+          </Button>
+        )}
+
         <Button
           onClick={handleClickStop}
           disabled={!isRunning}
@@ -111,6 +125,14 @@ const useStyles = createStyles((theme) => ({
     marginLeft: "auto",
     marginRight: "auto",
     gap: 20,
+  },
+  title: {
+    marginRight: 80,
+    textAlign: "center",
+  },
+  titleContainer: {
+    display: "flex",
+    alignItems: "center",
   },
   formContainer: {
     display: "flex",

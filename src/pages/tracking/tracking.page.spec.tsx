@@ -26,14 +26,12 @@ describe("TrackingPage", () => {
   let screen: RenderResult,
     title: HTMLElement,
     startButton: HTMLElement,
-    pauseButton: HTMLElement,
     stopButton: HTMLElement;
 
   beforeEach(() => {
     screen = render(<TrackingPage />);
     title = screen.getByText("Tracking");
     startButton = screen.getByRole("button", { name: "Start" });
-    pauseButton = screen.getByRole("button", { name: "Pause" });
     stopButton = screen.getByRole("button", { name: "Stop" });
   });
 
@@ -42,20 +40,18 @@ describe("TrackingPage", () => {
   });
 
   describe("when the company is not selected", () => {
-    it("should not be possible to start, pause or stop the stopwatch", () => {
+    it("should not be possible to start or stop the stopwatch", () => {
       expect(startButton).toBeDisabled();
-      expect(pauseButton).toBeDisabled();
       expect(stopButton).toBeDisabled();
     });
   });
 
   describe("when the company is selected", () => {
     describe("when the activity is not selected", () => {
-      it("should not be possible to start, pause or stop the stopwatch", async () => {
+      it("should not be possible to start or stop the stopwatch", async () => {
         await selectCompany(screen);
 
         expect(startButton).toBeDisabled();
-        expect(pauseButton).toBeDisabled();
         expect(stopButton).toBeDisabled();
       });
     });
@@ -68,11 +64,10 @@ describe("TrackingPage", () => {
         expect(startButton).not.toBeDisabled();
       });
 
-      it("should not be possible to pause or stop the stopwatch ", async () => {
+      it("should not be possible to stop the stopwatch ", async () => {
         await selectCompany(screen);
         await selectActivity(screen);
 
-        expect(pauseButton).toBeDisabled();
         expect(stopButton).toBeDisabled();
       });
     });
