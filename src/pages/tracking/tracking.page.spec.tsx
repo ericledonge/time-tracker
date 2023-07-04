@@ -16,14 +16,18 @@ const selectActivity = async (screen: RenderResult) => {
   await userEvent.click(screen.getAllByRole("option")[1]);
 };
 
+const startTask = async (screen: RenderResult) => {
+  await selectCompany(screen);
+  await selectActivity(screen);
+  await userEvent.click(screen.getByRole("button", { name: "Start" }));
+};
+
 describe("TrackingPage", () => {
   let screen: RenderResult,
     title: HTMLElement,
     startButton: HTMLElement,
     pauseButton: HTMLElement,
-    stopButton: HTMLElement,
-    companySelector: HTMLElement,
-    activitySelector: HTMLElement;
+    stopButton: HTMLElement;
 
   beforeEach(() => {
     screen = render(<TrackingPage />);
@@ -31,8 +35,6 @@ describe("TrackingPage", () => {
     startButton = screen.getByRole("button", { name: "Start" });
     pauseButton = screen.getByRole("button", { name: "Pause" });
     stopButton = screen.getByRole("button", { name: "Stop" });
-    companySelector = screen.getByRole("searchbox", { name: /Company/i });
-    activitySelector = screen.getByRole("searchbox", { name: /Activity/i });
   });
 
   it("renders the title", () => {
@@ -76,5 +78,20 @@ describe("TrackingPage", () => {
     });
   });
 
-  // describe("when the stopwatch is running", () => {});
+  describe("when the stopwatch is running", () => {
+    it("should not be possible to start the stopwatch", async () => {
+      await startTask(screen);
+
+      const startButton = await screen.queryByRole("button", {
+        name: /start/i,
+      });
+
+      const resumeButton = await screen.findByRole("button", {
+        name: /resume/i,
+      });
+
+      expect(startButton).not.toBeInTheDocument();
+      expect(resumeButton).toBeDisabled();
+    });
+  });
 });

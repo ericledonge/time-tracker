@@ -23,10 +23,12 @@ export const TrackingPage = () => {
   const [selectedActivity, setSelectedActivity] = useState("");
   const [startingDate, setStartingDate] = useState<Date>();
   const { hours, minutes, isRunning, start, pause } = useStopwatch();
+  const [hasStarted, setHasStarted] = useState(false);
 
   const isStartClickable = selectedCompany && selectedActivity;
 
   const handleClickStart = () => {
+    setHasStarted(true);
     setStartingDate(new Date());
     start();
   };
@@ -66,7 +68,7 @@ export const TrackingPage = () => {
           disabled={!isStartClickable || isRunning}
           fullWidth
         >
-          {minutes > 0 ? "Resume" : "Start"}
+          {hasStarted ? "Resume" : "Start"}
         </Button>
         <Button
           onClick={handleClickPause}
