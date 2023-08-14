@@ -1,8 +1,12 @@
 import { FormEvent, useState } from "react";
 
-import { signInWithEmail } from "../services";
+import { signInWithEmail, signInWithEmailMocked } from "../services";
 import { useSetLogin } from "../store/user";
 import { useNavigate } from "react-router-dom";
+
+const signInMethod = import.meta.env.PROD
+  ? signInWithEmail
+  : signInWithEmailMocked;
 
 export const useLogin = () => {
   const setLogin = useSetLogin();
@@ -12,16 +16,13 @@ export const useLogin = () => {
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (e: FormEvent) => {
-    console.log("handleSubmit");
     e.preventDefault();
 
     try {
-      const { data, error } = await signInWithEmail(email, password);
-      if (data?.user?.aud === "authenticated") {
+      const response = await signInMethod(email, password);
+      if (response) {
         setLogin();
         navigate("/tracking");
-      } else {
-        console.error(error);
       }
     } catch (error) {
       console.error(error);

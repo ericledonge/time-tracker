@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button, createStyles, Select, Text } from "@mantine/core";
 import { useStopwatch } from "react-timer-hook";
+import { mapTimeToDisplay } from "../../utils";
 
 // TODO: CreateTable https://mantine.dev/core/select/#creatable
 
@@ -44,12 +45,21 @@ export const TrackingPage = () => {
     pause();
   };
 
+  const handleClickNewTask = () => {
+    // save the task in the backend
+    // reset the form
+  };
+
   return (
     <div className={classes.mainContainer}>
       <div className={classes.titleContainer}>
         <h1 className={classes.title}>Tracking</h1>
 
-        <Button onClick={() => {}} disabled={!isNewTaskClickable} fullWidth>
+        <Button
+          onClick={handleClickNewTask}
+          disabled={!isNewTaskClickable}
+          fullWidth
+        >
           + New task
         </Button>
       </div>
@@ -103,14 +113,20 @@ export const TrackingPage = () => {
       </div>
 
       <div className={classes.statusContainer}>
-        <Text>
-          Started at:{" "}
-          {startingDate?.toLocaleTimeString([], {
-            hour: "2-digit",
-            minute: "2-digit",
-          })}
-        </Text>
-        <Text>{`Elapsed time: ${hours}h ${minutes}m`}</Text>
+        {hasStarted ? (
+          <>
+            <Text>
+              Started at:{" "}
+              {startingDate?.toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+              })}
+            </Text>
+            <Text>{mapTimeToDisplay({ hours, minutes })}</Text>
+          </>
+        ) : (
+          <Text>Not started</Text>
+        )}
       </div>
     </div>
   );
@@ -150,7 +166,7 @@ const useStyles = createStyles((theme) => ({
   },
   statusContainer: {
     display: "flex",
-    flexDirection: "column",
-    gap: 20,
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 }));

@@ -6,7 +6,9 @@ import {
 import { Layout } from "./layout.tsx";
 import { DashboardPage, LandingPage, LoginPage, TrackingPage } from "../pages";
 
-export const APP_NAME = "Time Tracker";
+export const APP_NAME = import.meta.env.PROD
+  ? "Time Tracker"
+  : "Time Tracker (Dev)";
 
 export enum PAGES {
   "LANDING" = "/",

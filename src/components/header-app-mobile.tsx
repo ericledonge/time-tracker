@@ -32,7 +32,7 @@ export const HeaderAppMobile = ({
     closeDrawer();
   };
 
-  const handleLogoutClick = () => {
+  const handleLogoutClick = async () => {
     setLogout();
     closeDrawer();
   };

@@ -1,4 +1,4 @@
-import { expect } from "vitest";
+import { expect, vi } from "vitest";
 import { render, RenderResult } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
@@ -87,6 +87,18 @@ describe("TrackingPage", () => {
 
       expect(startButton).not.toBeInTheDocument();
       expect(resumeButton).toBeDisabled();
+    });
+
+    // TODO: issue with vitest fake timers and RTL
+    it.skip("should increment the elapsed time", async () => {
+      vi.useFakeTimers();
+
+      await startTask(screen);
+
+      vi.advanceTimersByTime(80 * 1000); // 60 seconds * 1000ms
+
+      expect(screen.queryByText(/elapsed time: 00:01/i)).toBeInTheDocument();
+      expect(screen.queryByText(/lapsed time: 00:00/i)).toBeInTheDocument();
     });
   });
 });

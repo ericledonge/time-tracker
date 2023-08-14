@@ -1,6 +1,12 @@
-export const convertSeconds = (sec: number): string => {
-  const hours = Math.floor(sec / 3600);
-  const minutes = Math.floor((sec - hours * 3600) / 60);
+interface TimeToDisplay {
+  hours: number;
+  minutes: number;
+}
 
-  return hours + "h " + minutes + "m";
+export const mapTimeToDisplay = ({ hours, minutes }: TimeToDisplay) => {
+  const timeString = `${hours.toString().padStart(2, "0")}:${minutes
+    .toString()
+    .padStart(2, "0")}`;
+
+  return `Elapsed time: ${timeString}`;
 };
