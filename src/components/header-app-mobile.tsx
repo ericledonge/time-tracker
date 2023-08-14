@@ -10,7 +10,6 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 
 import { APP_NAME, PAGES } from "../routing";
-import { useAuthentication } from "../hooks";
 import { useGetIsUserAuthenticated, useSetLogout } from "../store/user";
 
 type HeaderAppMobileProps = {

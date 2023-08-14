@@ -12,12 +12,17 @@ import { Link } from "react-router-dom";
 
 import { HeaderAppMobile } from "./header-app-mobile.tsx";
 import { APP_NAME, PAGES } from "../routing";
-import { useAuthentication } from "../hooks";
+import { useGetIsUserAuthenticated, useSetLogout } from "../store/user";
 
 export function HeaderApp() {
   const { classes } = useStyles();
 
-  const { isUserAuthenticated, setLogout } = useAuthentication();
+  const isUserAuthenticated = useGetIsUserAuthenticated();
+  const setLogout = useSetLogout();
+
+  const handleLogoutClick = () => {
+    setLogout();
+  };
 
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
@@ -54,7 +59,7 @@ export function HeaderApp() {
             </Group>
           ) : (
             <Group className={classes.hiddenMobile}>
-              <Button onClick={setLogout} variant="default">
+              <Button onClick={handleLogoutClick} variant="default">
                 Log out
               </Button>
             </Group>
