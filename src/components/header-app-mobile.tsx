@@ -11,6 +11,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { APP_NAME, PAGES } from "../routing";
 import { useAuthentication } from "../hooks";
+import { useGetIsUserAuthenticated, useSetLogout } from "../store/user";
 
 type HeaderAppMobileProps = {
   drawerOpened: boolean;
@@ -25,14 +26,16 @@ export const HeaderAppMobile = ({
 
   const navigate = useNavigate();
 
-  const { isUserAuthenticated, setLogout } = useAuthentication();
+  const isUserAuthenticated = useGetIsUserAuthenticated();
+  const setLogout = useSetLogout();
 
   const handleLoginClick = () => {
     navigate(PAGES.LOGIN);
     closeDrawer();
   };
 
-  const handleLogoutClick = async () => {
+  const handleLogoutClick = () => {
+    navigate(PAGES.LANDING);
     setLogout();
     closeDrawer();
   };
