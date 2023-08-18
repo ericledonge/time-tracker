@@ -1,14 +1,16 @@
 import { useState } from "react";
 import { Button, createStyles, Select, Text } from "@mantine/core";
 import { useStopwatch } from "react-timer-hook";
+
 import { mapTimeToDisplay } from "../../utils";
 import { useAddActivity } from "../../store/activities";
+import { useGetCompanies } from "../../hooks/use-get-companies.ts";
 
-const dataCompany = [
-  { label: "Company 1", value: "Company 1" },
-  { label: "Company 2", value: "Company 2" },
-  { label: "Company 3", value: "Company 3" },
-];
+// const dataCompany = [
+//   { label: "Company 1", value: "Company 1" },
+//   { label: "Company 2", value: "Company 2" },
+//   { label: "Company 3", value: "Company 3" },
+// ];
 
 const dataActivity = [
   { label: "Activity 1", value: "Activity 1" },
@@ -18,6 +20,8 @@ const dataActivity = [
 
 export const TrackingPage = () => {
   const { classes } = useStyles();
+
+  const { companies } = useGetCompanies();
 
   const { hours, minutes, isRunning, start, pause } = useStopwatch();
 
@@ -74,7 +78,7 @@ export const TrackingPage = () => {
       <div className={classes.formContainer}>
         <Select
           label="Company"
-          data={dataCompany}
+          data={companies}
           value={selectedCompany}
           onChange={(value) => setSelectedCompany(value!)}
           placeholder="Pick one"

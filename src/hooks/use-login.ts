@@ -1,12 +1,14 @@
 import { FormEvent, useState } from "react";
 
-import { signInWithEmail, signInWithEmailMocked } from "../services";
+import { signInWithEmail } from "../services";
 import { useSetLogin } from "../store/user";
 import { useNavigate } from "react-router-dom";
 
-const signInMethod = import.meta.env.PROD
-  ? signInWithEmail
-  : signInWithEmailMocked;
+// const signInMethod = import.meta.env.PROD
+//   ? signInWithEmail
+//   : signInWithEmailMocked;
+
+const signInMethod = signInWithEmail;
 
 export const useLogin = () => {
   const setLogin = useSetLogin();
