@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 
-import { Company } from "../models";
 import { apiClient } from "../services";
 
 export const useGetCompanies = () => {
-  const [companies, setCompanies] = useState<Company[]>([]);
+  const [companies, setCompanies] = useState<string[]>([]);
 
   useEffect(() => {
     const getCompanies = async () => {
