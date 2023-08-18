@@ -34,6 +34,7 @@ export const HeaderAppMobile = ({
   };
 
   const handleLogoutClick = () => {
+    setLogout();
     closeDrawer();
   };
 
