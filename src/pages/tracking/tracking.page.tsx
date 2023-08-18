@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Button, createStyles, Select, Text } from "@mantine/core";
 import { useStopwatch } from "react-timer-hook";
 import { mapTimeToDisplay } from "../../utils";
+import { useAddActivity, useGetActivities } from "../../store/activities";
+import { useStore } from "../../store";
 
 // TODO: CreateTable https://mantine.dev/core/select/#creatable
 
@@ -27,6 +29,11 @@ export const TrackingPage = () => {
   const [startingDate, setStartingDate] = useState<Date>();
   const [hasStarted, setHasStarted] = useState(false);
 
+  const addActivity = useAddActivity();
+  const activities = useGetActivities();
+
+  console.log(activities);
+
   const isStartClickable = selectedCompany && selectedActivity;
 
   const isNewTaskClickable = hasStarted && !isRunning;
@@ -35,6 +42,12 @@ export const TrackingPage = () => {
     setHasStarted(true);
     setStartingDate(new Date());
     start();
+    addActivity({
+      id: "1",
+      company: selectedCompany,
+      activity: selectedActivity,
+      time: 0,
+    });
   };
 
   const handleClickResume = () => {

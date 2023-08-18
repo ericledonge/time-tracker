@@ -17,7 +17,7 @@ export const createUserSlice: StoreSlice<UserSlice> = (set) => ({
   login: () => {
     set(
       (state) => ({ user: { ...state.user, isAuthenticated: true } }),
-      true,
+      false,
       // @ts-ignore
       "login"
     );
@@ -25,7 +25,7 @@ export const createUserSlice: StoreSlice<UserSlice> = (set) => ({
   logout: () => {
     set(
       (state) => ({ user: { ...state.user, isAuthenticated: false } }),
-      true,
+      false,
       // @ts-ignore
       "logout"
     );

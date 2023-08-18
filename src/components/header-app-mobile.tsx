@@ -34,8 +34,6 @@ export const HeaderAppMobile = ({
   };
 
   const handleLogoutClick = () => {
-    navigate(PAGES.LANDING);
-    setLogout();
     closeDrawer();
   };
 
