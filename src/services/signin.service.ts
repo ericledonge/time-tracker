@@ -28,10 +28,3 @@ export const signInWithEmail = async (
     };
   }
 };
-
-export const signInWithEmailMocked = async () => {
-  return {
-    authenticated: true,
-    error: "",
-  };
-};

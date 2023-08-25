@@ -5,7 +5,7 @@ export const useAddCompany = () => {
   return async (company: Company) => {
     try {
       const { data, error } = await apiClient
-        .from("Company")
+        .from("companies")
         .insert({ name: company.name });
       if (data) {
         console.log(data);

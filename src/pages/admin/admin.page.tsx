@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { Button, TextInput, createStyles } from "@mantine/core";
 
 import { useAddCompany } from "../../hooks/use-add-company.ts";
+import { notifications } from "@mantine/notifications";
 
 export const AdminPage = () => {
   const { classes } = useStyles();
@@ -10,12 +11,19 @@ export const AdminPage = () => {
 
   const addCompany = useAddCompany();
 
-  const handleSubmitNewCompany = async (
-    event: React.FormEvent<HTMLFormElement>
-  ) => {
+  const handleSubmitNewCompany = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     await addCompany({
       name: companyName,
+    });
+
+    setCompanyName("");
+
+    notifications.show({
+      title: "Company added",
+      message: "The company was added successfully",
+      color: "green",
     });
   };
 

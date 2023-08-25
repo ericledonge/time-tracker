@@ -1,13 +1,9 @@
+import { useNavigate } from "react-router-dom";
+import { useSetLogout } from "../store/user";
 import { FormEvent, useState } from "react";
 
-import { signInWithEmail } from "../services";
-import { useSetLogin } from "../store/user";
-import { useNavigate } from "react-router-dom";
-
-const signInMethod = signInWithEmail;
-
-export const useLogin = () => {
-  const setLogin = useSetLogin();
+export const useSignup = () => {
+  const setLogout = useSetLogout();
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
