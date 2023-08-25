@@ -1,1 +1,4 @@
-Create an Admin Page for create companies and activities
+Associate Data to User
+
+Can have multiple users
+Each user has his own data.

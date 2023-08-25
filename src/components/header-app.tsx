@@ -47,6 +47,9 @@ export function HeaderApp() {
               <Link to={PAGES.DASHBOARD} className={classes.link}>
                 Dashboard
               </Link>
+              <Link to={PAGES.ADMIN} className={classes.link}>
+                Admin
+              </Link>
             </Group>
           )}
 

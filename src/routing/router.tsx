@@ -5,6 +5,7 @@ import {
 
 import { Layout } from "./layout.tsx";
 import { DashboardPage, LandingPage, LoginPage, TrackingPage } from "../pages";
+import { AdminPage } from "../pages/admin";
 
 export const APP_NAME = import.meta.env.PROD
   ? "Time Tracker"
@@ -15,6 +16,7 @@ export enum PAGES {
   "LOGIN" = "login",
   "TRACKING" = "tracking",
   "DASHBOARD" = "dashboard",
+  "ADMIN" = "admin",
 }
 
 const router = createBrowserRouter([
@@ -39,13 +41,10 @@ const router = createBrowserRouter([
         path: PAGES.DASHBOARD,
         element: <DashboardPage />,
       },
-      // {
-      //   path: "signup",
-      //   element: <Signup />,
-      // },
-      // {
-      //   path: "logout",
-      // },
+      {
+        path: PAGES.ADMIN,
+        element: <AdminPage />,
+      },
     ],
   },
 ]);

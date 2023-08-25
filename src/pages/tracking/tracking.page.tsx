@@ -6,12 +6,6 @@ import { mapTimeToDisplay } from "../../utils";
 import { useAddActivity } from "../../store/activities";
 import { useGetCompanies } from "../../hooks/use-get-companies.ts";
 
-// const dataCompany = [
-//   { label: "Company 1", value: "Company 1" },
-//   { label: "Company 2", value: "Company 2" },
-//   { label: "Company 3", value: "Company 3" },
-// ];
-
 const dataActivity = [
   { label: "Activity 1", value: "Activity 1" },
   { label: "Activity 2", value: "Activity 2" },

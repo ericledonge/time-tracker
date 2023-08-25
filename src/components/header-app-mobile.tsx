@@ -69,6 +69,13 @@ export const HeaderAppMobile = ({
             >
               Dashboard
             </Link>
+            <Link
+              to={PAGES.ADMIN}
+              onClick={closeDrawer}
+              className={classes.link}
+            >
+              Admin
+            </Link>
             <Divider
               my="sm"
               color={theme.colorScheme === "dark" ? "dark.5" : "gray.1"}

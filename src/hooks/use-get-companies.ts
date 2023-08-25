@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { apiClient } from "../services";
+import { Company } from "../models";
 
 export const useGetCompanies = () => {
   const [companies, setCompanies] = useState<string[]>([]);
@@ -8,12 +9,14 @@ export const useGetCompanies = () => {
   useEffect(() => {
     const getCompanies = async () => {
       try {
-        const { data, error } = await apiClient.from("companies").select();
+        const { data, error } = await apiClient.from("Company").select();
         if (data) {
-          const mappedData = data.map((company) => company.name);
+          const mappedData = data.map((company: Company) => company.name);
           setCompanies(mappedData);
         }
-        console.log(data);
+        if (error) {
+          console.error(error);
+        }
       } catch (error) {
         console.error(error);
       }
